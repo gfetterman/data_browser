@@ -27,7 +27,7 @@ class DirectoryViewer(tk.Frame):
     def __init__(self, master=None, path='.'):
         super().__init__(master)
         self.master = master
-        self.grid(row=0, column=0, sticky='nsw')
+        self.grid(row=0, column=0, sticky='nswe')
         master.rowconfigure(0, weight=1)
         master.columnconfigure(0, weight=1)
         self.setup_tree(path)
@@ -56,7 +56,7 @@ class DirectoryViewer(tk.Frame):
 
         self.tree = tk_ttk.Treeview(self)
         self.tree.bind('<<TreeviewSelect>>', self.tell_master_select)
-        self.tree.grid(row=0, column=0, sticky='nsw')
+        self.tree.grid(row=0, column=0, sticky='nswe')
 
         ysb = tk_ttk.Scrollbar(self,
                                orient='vertical',
@@ -90,7 +90,7 @@ class GraphPlotter(tk.Frame):
         super().__init__(master)
         self.grid(row=0, column=1, sticky='nsew')
         master.rowconfigure(0, weight=1)
-        master.columnconfigure(1, weight=1)
+        master.columnconfigure(1, weight=100)
         self.load_plotters()
         self.setup_canvas()
         self.rowconfigure(0, weight=1)
