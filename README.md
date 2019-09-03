@@ -39,10 +39,10 @@ meet the following criteria:
    ```Python
    DEFAULT_PLOTTER = basic_npy_plot
    ```
-5. `DEFAULT_PLOTTER` must be a function that takes one string argument
-   representing a data file to be loaded and plotted and one `matplotlib` `Axes`
-   object, onto which the function will plot the data. The function may raise
-   any exception (they will be caught and displayed in place of a plot).
+5. `DEFAULT_PLOTTER` must be a function that takes one string argument,
+   representing a data file to be loaded and plotted, and one `matplotlib`
+   `Figure` object, onto which the function will plot the data. The function may
+   raise any exception; they will be caught and displayed in place of a plot.
    Its return value will be discarded.
    
    For an example, see the included `plotting_modules/plot_npy.py` file.
@@ -53,7 +53,6 @@ This browser is very much a work in progress, and is likely to be brittle.
 
 The most obvious current limitations (there are surely others):
 
-* only one-panel graphs can be displayed
 * only one plotting function can be specified for each file extension
 * the user has no run-time control over plot display
 

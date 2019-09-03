@@ -117,7 +117,6 @@ class GraphPlotter(tk.Frame):
 
     def setup_canvas(self):
         self.figure = matplotlib.figure.Figure(figsize=(5, 5), dpi=100)
-        self.axes = self.figure.add_subplot(111)
         self.canvas = FigureCanvasTkAgg(self.figure, self)
         self.draw_plot(None)
         self.canvas.get_tk_widget().grid(column=0, row=0, sticky='nsew')
@@ -129,26 +128,28 @@ class GraphPlotter(tk.Frame):
                          in plotting_modules.__all__}
 
     def draw_plot(self, file):
-        self.axes.clear()
+        self.figure.clf()
         if file is None or os.path.isdir(file):
-            plot_dir(file, self.axes)
+            plot_dir(file, self.figure)
         elif os.path.splitext(file)[1] in self.plotters:
             try:
-                self.plotters[os.path.splitext(file)[1]](file, self.axes)
+                self.plotters[os.path.splitext(file)[1]](file, self.figure)
             except Exception as e:
-                plot_error(e, self.axes)
+                plot_error(e, self.figure)
         else:
-            plot_error(ValueError('cannot plot {}'.format(file)), self.axes)
+            plot_error(ValueError('cannot plot {}'.format(file)), self.figure)
         self.canvas.draw_idle()
 
-def plot_error(error, ax):
+def plot_error(error, fig):
     msg = 'An error occurred:\n'
     msg += type(error).__name__ + '\n'
     msg += '\n'.join(textwrap.wrap(str(error), 60))
+    ax = fig.add_subplot(111)
     ax.text(0, 0, msg)
     ax.set_axis_off()
 
-def plot_dir(file, ax):
+def plot_dir(file, fig):
+    ax = fig.add_subplot(111)
     ax.set_axis_off()
 
 if __name__ == '__main__':

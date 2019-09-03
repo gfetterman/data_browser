@@ -1,9 +1,10 @@
 import numpy as np
 import os
 
-def basic_npy_plot(path, ax):
+def basic_npy_plot(path, fig):
     assert os.path.splitext(path)[1] == FILE_EXTENSION
     data = np.load(path)
+    ax = fig.add_subplot(111)
     if len(data.shape) == 1:
         ax.plot(data)
     elif len(data.shape) == 2:
