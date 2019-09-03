@@ -14,11 +14,12 @@ class FullDisplay(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
         self.grid(row=0, column=0, sticky='nsew')
-        master.rowconfigure(0, weight=1)
-        master.columnconfigure(0, weight=1)
         self.tree = DirectoryViewer(self)
         self.canvas = GraphPlotter(self)
         self.bind(TREEVIEW_SELECT_EVENT, self.treeview_new_selection)
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=3)
+        self.columnconfigure(1, weight=10)
 
     def treeview_new_selection(self, event):
         self.canvas.draw_plot(self.tree.get_selected_file())
@@ -28,8 +29,6 @@ class DirectoryViewer(tk.Frame):
         super().__init__(master)
         self.master = master
         self.grid(row=0, column=0, sticky='nswe')
-        master.rowconfigure(0, weight=1)
-        master.columnconfigure(0, weight=1)
         self.setup_tree(path)
 
     def tell_master_select(self, event):
@@ -108,8 +107,6 @@ class GraphPlotter(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
         self.grid(row=0, column=1, sticky='nsew')
-        master.rowconfigure(0, weight=1)
-        master.columnconfigure(1, weight=100)
         self.load_plotters()
         self.setup_canvas()
         self.rowconfigure(0, weight=1)
@@ -154,5 +151,8 @@ def plot_dir(file, fig):
 
 if __name__ == '__main__':
     root = tk.Tk()
+    root.geometry('800x500')
     app = FullDisplay(master=root)
+    root.rowconfigure(0, weight=1)
+    root.columnconfigure(0, weight=1)
     app.mainloop()
