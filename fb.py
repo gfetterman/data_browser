@@ -75,8 +75,27 @@ class DirectoryViewer(tk.Frame):
         self.tree.heading('#0', text=path, anchor='w')
 
         root_node = self.tree.insert('', 'end', text=path, open=True)
-        self.process_directory(root_node, path)
+        self.opened = set([root_node])
+        for p in os.listdir(path):
+            self.insert_node(root_node, p, os.path.join(path, p))
+        self.tree.bind('<<TreeviewOpen>>', self.open_node)
 
+    # insert_node() and open_node() are for lazy loading
+    def insert_node(self, parent, text, path):
+        node = self.tree.insert(parent, 'end', text=text, open=False)
+        if os.path.isdir(path):
+            self.tree.insert(node, 'end') # dummy to show the dir icon
+
+    def open_node(self, event):
+        curr_node = self.tree.focus()
+        abspath = self.build_path(curr_node)
+        if os.path.isdir(abspath) and curr_node not in self.opened:
+            self.tree.delete(self.tree.get_children(curr_node))
+            for p in os.listdir(abspath):
+                self.insert_node(curr_node, p, os.path.join(abspath, p))
+            self.opened.add(curr_node)
+
+    # process_directory() does eager loading
     def process_directory(self, parent, path):
         for p in os.listdir(path):
             abspath = os.path.join(path, p)
