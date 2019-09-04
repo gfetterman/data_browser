@@ -152,6 +152,7 @@ def plot_dir(file, fig):
 if __name__ == '__main__':
     root = tk.Tk()
     root.geometry('800x500')
+    root.title('Data Browser')
     app = FullDisplay(master=root)
     root.rowconfigure(0, weight=1)
     root.columnconfigure(0, weight=1)
