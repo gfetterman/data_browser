@@ -1,17 +1,29 @@
-# File browser
+# Data browser
 
 This file browser allows you to explore a directory tree and produce quick
 summary plots of data files.
 
 ## Installation
 
-This project is currently only a script. To use,
+To install using pip,
 
 ```
-$ git clone https://github.com/gfetterman/file_browser.git
-$ cd file_browser
-$ python fb.py
+$ git clone https://github.com/gfetterman/data_browser.git
+$ cd data_browser
+$ pip install .
 ```
+
+The installed program is called `data-browser`.
+
+To use custom plots you have written, you must either reinstall the package each
+time you modify the plotting modules in `data_browser/plotting_modules`, or
+install the package in 'editable' mode via
+
+```
+$ pip install -e .
+```
+
+rather than the plain installation command above.
 
 ## Custom plot display
 
@@ -19,8 +31,9 @@ Only rudimentary plotting of `.npy` files is supported by default, but the
 browser supports displaying user-defined plots as well.
 
 To create a custom plot, you must place a new `.py` file into the
-`plotting_modules` subdirectory. To be usable by the file browser, the file must
-meet the following criteria:
+`data_browser/plotting_modules` subdirectory.
+
+To be usable by the data browser, the file must meet the following criteria:
 
 1. its name must not begin with double underscores
 2. it must contain valid Python code, and be importable
@@ -45,7 +58,8 @@ meet the following criteria:
    raise any exception; they will be caught and displayed in place of a plot.
    Its return value will be discarded.
    
-   For an example, see the included `plotting_modules/plot_npy.py` file.
+   For an example, see the included `data_browser/plotting_modules/plot_npy.py`
+   file.
 
 ## Caveats
 
