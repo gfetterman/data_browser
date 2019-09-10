@@ -119,10 +119,10 @@ class GraphPlotter(tk.Frame):
         self.canvas.get_tk_widget().grid(column=0, row=0, sticky='nsew')
 
     def load_plotters(self):
-        import plotting_modules
+        import data_browser.plotting_modules
         self.plotters = {module.FILE_EXTENSION: module.DEFAULT_PLOTTER
                          for module
-                         in plotting_modules.__all__}
+                         in data_browser.plotting_modules.__all__}
 
     def draw_plot(self, file):
         self.figure.clf()
@@ -149,7 +149,7 @@ def plot_dir(file, fig):
     ax = fig.add_subplot(111)
     ax.set_axis_off()
 
-if __name__ == '__main__':
+def _main():
     root = tk.Tk()
     root.geometry('800x500')
     root.title('Data Browser')
@@ -157,3 +157,6 @@ if __name__ == '__main__':
     root.rowconfigure(0, weight=1)
     root.columnconfigure(0, weight=1)
     app.mainloop()
+
+if __name__ == '__main__':
+    _main()

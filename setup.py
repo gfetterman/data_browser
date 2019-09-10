@@ -1,0 +1,25 @@
+from setuptools import setup
+
+setup(name='data_browser',
+      version='0.1',
+      description='extensible visual browser for data files',
+      url='http://github.com/gfetterman/data_browser',
+      author='Graham Fetterman',
+      author_email='graham.fetterman@gmail.com',
+      license='MIT',
+      classifiers=['Development Status :: 3 - Alpha',
+                   'Intended Audience :: Science/Research',
+                   'License :: OSI Approved :: MIT License',
+                   'Programming Language :: Python :: 2.7',
+                   'Programming Language :: Python :: 3.3',
+                   'Programming Language :: Python :: 3.4',
+                   'Programming Language :: Python :: 3.5',
+                   'Programming Language :: Python :: 3.6',
+                   'Programming Language :: Python :: 3.7',],
+      keywords='data browse visualization',
+      packages=['data_browser', 'data_browser.plotting_modules'],
+      python_requires='>=2.7, != 3.0.*, != 3.1.*, != 3.2, <4',
+      install_requires=['matplotlib', 'numpy'],
+      zip_safe=False,
+      entry_points={'console_scripts':
+                      ['data-browser=data_browser.data_browser:_main']})
